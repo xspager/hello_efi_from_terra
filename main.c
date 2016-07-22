@@ -76,5 +76,19 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
     Print(L"%c%d: %dx%d ", memcmp(info, gop->Mode->Info, sizeof(*info)) == 0 ? '*' : ' ', i, info->HorizontalResolution, info->VerticalResolution);
   }
 
+  // FROM: https://github.com/vathpela/gnu-efi/blob/master/apps/t7.c
+
+  EFI_INPUT_KEY efi_input_key;
+
+  Print(L"\n\n\nHit any key to exit this image\n");
+
+  WaitForSingleEvent(SystemTable->ConIn->WaitForKey, 0);
+  
+  uefi_call_wrapper(SystemTable->ConOut->OutputString, 2, SystemTable->ConOut, L"\n\n");
+  
+  status = uefi_call_wrapper(SystemTable->ConIn->ReadKeyStroke, 2, SystemTable->ConIn, &efi_input_key);
+  
+  Print(L"ScanCode: %xh  UnicodeChar: %xh\n", efi_input_key.ScanCode, efi_input_key.UnicodeChar);
+
   return EFI_SUCCESS;
 }
