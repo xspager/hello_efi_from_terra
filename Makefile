@@ -14,14 +14,17 @@ main.efi:	main.so
           -j .rela                \
           -j .reloc --target=efi-app-x86_64 main.so main.efi
 
-main.so:	main.o
-	ld main.o foo.o /usr/lib/crt0-efi-x86_64.o -nostdlib -znocombreloc -T /usr/lib/elf_x86_64_efi.lds -shared -Bsymbolic -L /usr/lib -l:libgnuefi.a -l:libefi.a -o main.so
+main.so:	modes.o main.o foo.o
+	ld main.o foo.o modes.o /usr/lib/crt0-efi-x86_64.o -nostdlib -znocombreloc -T /usr/lib/elf_x86_64_efi.lds -shared -Bsymbolic -L /usr/lib -l:libgnuefi.a -l:libefi.a -o main.so
 
 foo.o:	foo.t
 	../terra-Linux-x86_64-332a506/bin/terra foo.t	
 
-main.o:	main.c foo.o
-	gcc -c main.c foo.o $(FLAGS) -o main.o
+main.o:	main.c
+	gcc -c main.c $(FLAGS) -o main.o
+
+modes.o:	modes.c modes.h
+	gcc -c modes.c $(FLAGS) -o modes.o
 
 clean:
-	rm -f main.o foo.o main.so main.efi
+	rm -f main.o foo.o modes.o main.so main.efi
