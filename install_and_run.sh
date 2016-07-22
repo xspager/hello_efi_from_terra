@@ -10,8 +10,8 @@ else
 fi
 
 sudo mount /dev/loop0 /mnt
-#sudo mkdir -p /mnt/EFI/BOOT
-#sudo cp main.efi /mnt/EFI/BOOT
+sudo mkdir -p /mnt/EFI/BOOT
+#sudo cp main.efi /mnt/EFI/BOOT/BOOTx64.EFI
 sudo cp main.efi /mnt/
 sudo umount /mnt
 sudo losetup -d /dev/loop0
