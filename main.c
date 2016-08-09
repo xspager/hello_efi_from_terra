@@ -10,6 +10,8 @@ EFI_STATUS
 EFIAPI
 efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
 {
+  EFI_INPUT_KEY efi_input_key;
+
   int a = 10, b = 20;
 
   InitializeLib(ImageHandle, SystemTable);
@@ -33,10 +35,19 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   
   print_modes(gop);
 
+  Print(L"\n\n\nHit any key\n");
+  WaitForSingleEvent(SystemTable->ConIn->WaitForKey, 0);
+  status = uefi_call_wrapper(SystemTable->ConIn->ReadKeyStroke, 2, SystemTable->ConIn, &efi_input_key);
+ 
   paint_screen(gop, (UINT32)0x00FF0000);
+  uefi_call_wrapper(BS->Stall, 1, 2 * 1000 * 1000);
+ 
+  paint_screen(gop, (UINT32)0x0000FF00);
+  uefi_call_wrapper(BS->Stall, 1, 2 * 1000 * 1000);
+ 
+  paint_screen(gop, (UINT32)0x000000FF0);
 
   // FROM: https://github.com/vathpela/gnu-efi/blob/master/apps/t7.c
-  EFI_INPUT_KEY efi_input_key;
 
   Print(L"\n\n\nHit any key to exit this image\n");
 
