@@ -33,7 +33,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   
   print_modes(gop);
 
-  paint_screen((UINT32 *) gop->Mode->FrameBufferBase, (UINT32)0x00FF0000, gop->Mode->Info->HorizontalResolution, gop->Mode->Info->VerticalResolution);
+  paint_screen(gop, (UINT32)0x00FF0000);
 
   // FROM: https://github.com/vathpela/gnu-efi/blob/master/apps/t7.c
   EFI_INPUT_KEY efi_input_key;
