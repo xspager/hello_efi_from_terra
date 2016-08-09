@@ -2,6 +2,7 @@
 #include <efilib.h>
  
 #include "modes.h"
+#include "foo.h"
 
 extern EFI_GUID GraphicsOutputProtocol;
 
@@ -32,10 +33,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   
   print_modes(gop);
 
-  UINT32 *fb_address = (UINT32 *) gop->Mode->FrameBufferBase;
-
-  for(int i = 0; i < 800; i++)
-    fb_address[i] = 0x00FF0000;
+  paint_screen((UINT32 *) gop->Mode->FrameBufferBase, (UINT32)0x00FF0000, gop->Mode->Info->HorizontalResolution, gop->Mode->Info->VerticalResolution);
 
   // FROM: https://github.com/vathpela/gnu-efi/blob/master/apps/t7.c
   EFI_INPUT_KEY efi_input_key;
