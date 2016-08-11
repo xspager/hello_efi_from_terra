@@ -15,4 +15,7 @@ sudo cp main.efi /mnt/EFI/BOOT/BOOTx64.EFI
 #sudo cp main.efi /mnt/
 sudo umount /mnt
 sudo losetup -d /dev/loop0
-qemu-system-x86_64 -bios /usr/share/ovmf/OVMF.fd -drive file=uefi.img,index=0,media=disk,format=raw,if=ide
+#qemu-system-x86_64 -bios /usr/share/ovmf/OVMF.fd -drive file=uefi.img,index=0,media=disk,format=raw,if=ide -enable-kvm -vga cirrus -cpu kvm64
+## Debug using the serial port with:
+##  socat -,raw,echo=0 tcp4:localhost:6666
+qemu-system-x86_64 -bios /usr/share/ovmf/OVMF.fd -drive file=uefi.img,index=0,media=disk,format=raw,if=ide -enable-kvm -vga cirrus -cpu kvm64 -monitor stdio -serial tcp::6666,server -s
