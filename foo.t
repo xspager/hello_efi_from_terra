@@ -3,7 +3,7 @@ terralib.includepath = terralib.includepath..";/usr/include/efi;/usr/include/efi
 local target = terralib.newtarget {
 	Triple = "x86_64-pc-none";
 	--CPU = ;
-	Features = "+sse,+mmx";
+	Features = "-avx"; -- don't use AVX instructions
 }
 
 local C = terralib.includecstring([[
