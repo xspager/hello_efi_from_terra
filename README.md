@@ -10,3 +10,5 @@ $ sudo apt-get install gnu-efi
 ```
 
 You will also need to install QEmu and the ovmf package. Please open an Issue if I missed something.
+
+![Screenshot](screenshot.png)
