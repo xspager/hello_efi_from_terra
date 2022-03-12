@@ -46,6 +46,7 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   uefi_call_wrapper(BS->Stall, 1, 2 * 1000 * 1000);
  
   paint_screen(gop, (UINT32)0x000000FF0);
+  uefi_call_wrapper(BS->Stall, 1, 2 * 1000 * 1000);
 
   // FROM: https://github.com/vathpela/gnu-efi/blob/master/apps/t7.c
 
@@ -58,6 +59,9 @@ efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   status = uefi_call_wrapper(SystemTable->ConIn->ReadKeyStroke, 2, SystemTable->ConIn, &efi_input_key);
   
   Print(L"ScanCode: %xh  UnicodeChar: %xh\n", efi_input_key.ScanCode, efi_input_key.UnicodeChar);
+
+  WaitForSingleEvent(SystemTable->ConIn->WaitForKey, 0);
+  status = uefi_call_wrapper(SystemTable->ConIn->ReadKeyStroke, 2, SystemTable->ConIn, &efi_input_key);
 
   return EFI_SUCCESS;
 }
