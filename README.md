@@ -3,7 +3,7 @@ Hello EFI from Terra
 
 Proof of concept running [Terra](http://terralang.org/) code on the (U)EFI environment
 
-You will need the Terra release for Linux (x86-64) https://github.com/zdevito/terra/releases/download/release-2016-03-25/terra-Linux-x86_64-332a506.zip and the GNU-EFI package, on Debian:
+You will need the Terra release for Linux (x86-64) https://github.com/terralang/terra/releases/tag/release-1.0.0-beta3 and the GNU-EFI package, on Debian/Ubuntu:
 
 ```bash
 $ sudo apt-get install gnu-efi
