@@ -1,4 +1,4 @@
-terralib.includepath = terralib.includepath..";/usr/include/efi;/usr/include/efi/x86_64" 
+terralib.includepath = terralib.includepath..";/usr/include/efi;/usr/include/efi/x86_64;/usr/include/x86_64-linux-gnu/"
 
 local target = terralib.newtarget {
 	Triple = "x86_64-pc-none";
