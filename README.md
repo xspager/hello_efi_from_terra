@@ -16,6 +16,14 @@ $ docker build . -t terra
 $ docker run -v `realpath ./`:/hello -it terra
 ```
 
+Then inside the container:
+```bash
+$ make
+$ ./install_and_run.sh
+```
+
+You can have a look at install_and_run.sh for how to run this on QEmu. I suggest you copy OVMF.fd to /hello inside the container instead of installing the package containing the image on you local system.
+
 You will also need to install QEmu and the ovmf package. Please open an Issue if I missed something.
 
 ![Screenshot](screenshot.png)
